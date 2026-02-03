@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone, timedelta
-from src.patient_encounter_system.database import Base
+from src.database import Base
 
 
 class Appointment(Base):

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from datetime import datetime, timezone
-from src.patient_encounter_system.database import Base
+from src.database import Base
 
 
 class Doctor(Base):

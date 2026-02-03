@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException
-from src.patient_encounter_system.models.appointment import Appointment
-from src.patient_encounter_system.models.doctor import Doctor
+from src.models.appointment import Appointment
+from src.models.doctor import Doctor
 
 
 def create_appointment(db: Session, data):

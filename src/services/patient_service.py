@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from src.patient_encounter_system.models.patient import Patient
-from src.patient_encounter_system.models.appointment import Appointment
+from src.models.patient import Patient
+from src.models.appointment import Appointment
 
 
 def create_patient(db: Session, data):

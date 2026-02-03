@@ -1,18 +1,69 @@
-name: CI
+name: Python Production CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
+    env:
+      PYTHONPATH: .
+      ENV: test
+      DATABASE_URL: sqlite:///./test.db
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-      - run: pip install poetry
-      - run: poetry install
-      - run: poetry run ruff check src
-      - run: poetry run black --check src
-      - run: poetry run bandit -r src
-      - run: poetry run pytest
+          cache: "pip"
+
+      # 3️⃣ Install Poetry
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          poetry --version
+
+      # 4️⃣ Configure Poetry (important for CI)
+      - name: Configure Poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+
+      # 5️⃣ Install dependencies
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction --no-root
+
+      # 6️⃣ Ruff linting
+      - name: Lint with Ruff
+        run: |
+          poetry run ruff check src
+
+      # 7️⃣ Black formatting check
+      - name: Check formatting with Black
+        run: |
+          poetry run black --check src
+
+      # 8️⃣ Security scan
+      - name: Security scan with Bandit
+        run: |
+          poetry run bandit -r src -ll
+
+      # 9️⃣ Run tests with coverage
+      - name: Run tests with coverage
+        run: |
+          poetry run pytest \
+            --cov=src \
+            --cov-report=term-missing \
+            --cov-fail-under=80

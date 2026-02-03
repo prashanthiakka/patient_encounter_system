@@ -2,16 +2,16 @@ import pytest
 from fastapi.testclient import TestClient
 from datetime import datetime, timedelta, timezone
 
-from src.patient_encounter_system.main import app
-from src.patient_encounter_system.database import Base, engine, SessionLocal
-from src.patient_encounter_system.services import (
+from src.main import app
+from src.database import Base, engine, SessionLocal
+from src.services import (
     appointment_service,
     patient_service,
     doctor_service,
 )
-from src.patient_encounter_system.schemas.patient import PatientCreate
-from src.patient_encounter_system.schemas.doctor import DoctorCreate
-from src.patient_encounter_system.schemas.appointment import AppointmentCreate
+from src.schemas.patient import PatientCreate
+from src.schemas.doctor import DoctorCreate
+from src.schemas.appointment import AppointmentCreate
 
 # Reset DB before API tests
 Base.metadata.drop_all(bind=engine)

@@ -1,13 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone, timedelta
-from src.patient_encounter_system.database import Base, engine, SessionLocal
-from src.patient_encounter_system.models.patient import Patient
-from src.patient_encounter_system.models.doctor import Doctor
-from src.patient_encounter_system.models.appointment import Appointment
-from src.patient_encounter_system.schemas.patient import PatientCreate, PatientRead
-from src.patient_encounter_system.schemas.doctor import DoctorCreate, DoctorRead
-from src.patient_encounter_system.schemas.appointment import (
+from src.database import Base, engine, SessionLocal
+from src.models.patient import Patient
+from src.models.doctor import Doctor
+from src.models.appointment import Appointment
+from src.schemas.patient import PatientCreate, PatientRead
+from src.schemas.doctor import DoctorCreate, DoctorRead
+from src.schemas.appointment import (
     AppointmentCreate,
     AppointmentRead,
 )
