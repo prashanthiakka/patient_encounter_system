@@ -1,0 +1,7 @@
+exclude_dirs:
+  - tests
+skips:
+  - B101
+  - B102
+targets:
+  - src
